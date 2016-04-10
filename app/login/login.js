@@ -20,7 +20,7 @@ angular.module('myApp.login', ['ngRoute','door3.css','angularSoap'])
     }])
     .controller('LoginCtrl', ['$http',function($http){
         this.postForm = function(){
-            
+
         }
     }]
     .controller('LoginCtrl',function($scope, testService) {
