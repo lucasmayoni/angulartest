@@ -9,24 +9,22 @@ angular.module('myApp.login', ['ngRoute','door3.css','angularSoap'])
             css: 'login/login.css'
         });
     }])
-
-    .factory("testService", ['$soap',function($soap){
-        var base_url= 'http://dev.redmondsupport.com:8080/SecurityWebServices/SecurityService';
-        return {
-            login:function (userName,password){
-                return $soap.post(base_url, "login", {userName: userName,password:password});
+    .controller('LoginCtrl',function($scope,authentication){
+        $scope.users = [{firstName:'Jane',lastName:'Doe',age:29},{
+                        firstName:'John',lastName:'Doe',age:32}];
+        $scope.login = function(username, password){
+            if(username==='admin' && password==='1234'){
+                authentication.isAuthenticated = true;
+                $scope.loginError = "SUCCESS";
+            }else{
+                $scope.loginError = "FAILED";
             }
         }
-    }])
-    .controller('LoginCtrl', ['$http',function($http){
-        this.postForm = function(){
-
-        }
-    }]
-    .controller('LoginCtrl',function($scope, testService) {
-        testService.login(
-            $scope.userName, $scope.password).then(function(response){
-            $scope.response = response;
-        }
-        )
-    });
+    })
+    .factory('authentication',function(){
+        //Aqui se podria invocar on angular-soap el ws de login, por ejemplo
+    return {
+        isAuthenticated: false,
+        user:null
+    }
+});
