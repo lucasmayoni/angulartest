@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.view2', ['ngRoute'])
+angular.module('myApp.view2', ['ngRoute','ngResource'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view2', {
@@ -9,6 +9,14 @@ angular.module('myApp.view2', ['ngRoute'])
   });
 }])
 
-.controller('View2Ctrl', [function() {
+.controller('View2Ctrl', ['$scope', 'Users',function($scope,Users) {
+  $scope.users = Users.query();
 
-}]);
+}]).factory('Users',['$resource',
+    function($resource){
+      return $resource('http://localhost:8081/listUsers',{},{
+        query:{method:'GET',params:{},isArray:false}
+      })
+    }
+])
+;

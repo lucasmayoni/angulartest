@@ -1,1 +1,13 @@
-<p>This is the partial for view 1.</p>
+<div ng-app ng-init="pensamientos = [];">
+    <h1>Altavoz AngularJS</h1>
+    <p>
+        ¿Qué hay de nuevo?
+<br />
+<input type="text" ng-model="nuevoPensamiento" />
+<input type="button" value="Agregar" ngclick="pensamientos.push(nuevoPensamiento);nuevoPensamiento = '';" />
+</p>
+<h2>Pensamientos que has tenido</h2>
+<p ng-repeat="pensamiento in pensamientos" ng-init="paso = $index">
+    Pensaste esto: {{pensamiento}} (Iteración con índice {{paso}})
+</p>
+    </div>
